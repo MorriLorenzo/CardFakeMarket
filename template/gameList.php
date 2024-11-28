@@ -1,0 +1,4 @@
+<?php
+//lista giochi selezionabili
+
+?>

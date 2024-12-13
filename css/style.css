@@ -1,4 +1,41 @@
+header {
+    background-color: rgb(0, 64, 255); 
+    box-sizing: border-box;
+    display: block;
+    width: 100vw; 
+    margin: 0;
+    padding: 0; 
+}
+
+header .container {
+    max-width: 1140px; 
+    margin: 0 auto;
+    padding: 0 15px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: white;
+}
+
 .logo-lg {
-    width: 100px; /* Aumenta la dimensione del logo */
+    width: 100px;
     height: 100px;
+}
+
+.btn {
+    color: rgb(255, 255, 255) !important;
+}
+
+.btn-inverted {
+    background-color: white !important;
+    color: rgb(0, 64, 255) !important;
+    border: 1px solid rgb(0, 64, 255) !important;
+}
+
+.btn-inverted:hover {
+    background-color: rgb(0, 48, 191) !important;
+    color: white !important;
 }

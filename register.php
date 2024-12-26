@@ -6,7 +6,7 @@ if(isset($_SESSION['email'])){
     require_once("bootstrapt.php");
 
     #nome pagina da visualizzare nel base
-    $page = "form_login.php";
+    $page = "form_register.php";
 
     require 'template/base.php';
 }

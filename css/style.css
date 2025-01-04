@@ -18,11 +18,29 @@ header .container {
 
 header h1 {
     color: white;
+    /*font-size: 120%;*/
 }
 
 .logo-lg {
     width: 100px;
     height: 100px;
+}
+
+@media (max-width: 556px) {
+    .logo-lg {
+      width: 20%;
+      height: 20%;
+    }
+}
+
+@media (max-width: 370px) {
+    .logo-lg {
+      width: 30%;
+      height: 30%;
+      top: 50%;
+      left: 50%;
+      margin-left: 60px;
+    }
 }
 
 .btn {

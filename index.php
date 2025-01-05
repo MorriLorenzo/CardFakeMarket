@@ -3,7 +3,8 @@ session_start();
 require_once("bootstrapt.php");
 
 //pagina di default
-//$page = path/pagina.php
+$page = "select_game.php";
+$games = $dbh->getGames();
 
 require 'template/base.php';
 ?>

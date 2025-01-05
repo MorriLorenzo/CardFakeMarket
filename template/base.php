@@ -15,7 +15,9 @@
             <div class="container">
                 <div class="d-flex align-items-center flex-wrap">
                     <img src="img/logo2.png" alt="Logo" class="rounded-circle me-3 logo-lg ">
-                    <h1 class="mb-0 navbar-expand-lg">CardFakeMarket</h1>
+                    <h1 class="mb-0 navbar-expand-lg">
+                        <a href="index.php" class="navbar-brand">CardFakeMarket</a>
+                    </h1>
                 </div>
                 <?php if (!isset($_SESSION['email'])): ?>
                 
@@ -32,7 +34,7 @@
                 </nav>
 
                 <?php else: ?>
-
+                <!-- da sistemare per bene con home -->
                 <nav>
                     <ul class="list-unstyled d-flex mb-0">
                         <li class="ms-3">

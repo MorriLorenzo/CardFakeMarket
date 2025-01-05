@@ -21,26 +21,35 @@
                 </div>
                 <?php if (!isset($_SESSION['email'])): ?>
                 
-                <nav>
-                    <ul class="list-unstyled d-flex mb-0 flex-wrap">
-                        <li class="ms-3">
-                            <button class="btn" id="signIn">Sign In</button>
-                        </li>
-                        <li class="ms-3">
-                            <button class="btn btn-inverted" id="signUp">Sign Up</button>
-                        </li>
-                        <script src="./js/button_login.js"></script>
-                    </ul>
-                </nav>
+                    <nav>
+                        <ul class="list-unstyled d-flex mb-0 flex-wrap">
+                            <?php if ($page != "form_login.php"): ?>
+                                <li class="ms-3">
+                                    <a href="login.php">
+                                        <button class="btn" id="signIn">Sign In</button>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if ($page != "form_register.php"): ?>
+                                <li class="ms-3">
+                                    <a href="register.php">
+                                        <button class="btn btn-inverted" id="signUp">Sign Up</button>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
 
                 <?php else: ?>
                 <!-- da sistemare per bene con home -->
                 <nav>
                     <ul class="list-unstyled d-flex mb-0">
                         <li class="ms-3">
-                            <button class="btn" id="logout">Logout</button>
+                            <a href="logout.php">
+                                <button class="btn" id="logout">Logout</button>
+                            </a>
                         </li>
-                        <script src="./js/button_logout.js"></script>
                     </ul>
                 </nav>
 
@@ -55,11 +64,11 @@
         require($page);
     }
     ?>
-
+<!--
     <?php if (isset($_SESSION['email'])){
         //se sei loggato stampa mail
         echo $_SESSION['email'];
     } ?>
-
+-->
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 require_once("./bootstrapt.php");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica se i dati sono stati inviati correttamente
@@ -14,26 +15,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if($dbh->insertUser($email, $first_name, $last_name, $address, $noadmin, $password)) {
                 if($dbh->insertCart($email)){
-                    //TODO piu carino ma non ho voglia ora
+                    //TODO piu carino ma non ho voglia ora -> alert?
                     header("Location: index.php");
                 }
             }else{
-                $error="Errore nell'inserimento!";
-                require('./register.php');
+                $_SESSION['error'] = "Errore nell'inserimento!";
+                header("Location: register.php");
             }
         }else{
-            $error="Email già usata!";
-            require('./register.php');
+            $_SESSION['error'] ="Email già usata!";
+            header("Location: register.php");
         }
     } else {
         // Gestisci il caso in cui i dati non siano presenti
-        $error = "Dati mancanti!";
-        require('./register.php');
+        $_SESSION['error'] = "Dati mancanti!";
+        header("Location: register.php");
         exit;
     }
 } else {
-    $error = "Il modulo non è stato inviato correttamente.";
-    require('./register.php');
+    $_SESSION['error'] = "Il modulo non è stato inviato correttamente.";
+    header("Location: register.php");
     exit;
 }
 

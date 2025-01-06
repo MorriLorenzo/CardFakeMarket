@@ -1,6 +1,7 @@
 <?php
 
 require_once("./bootstrapt.php");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica se i dati sono stati inviati correttamente
@@ -9,23 +10,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
         
         if($dbh->checkUser($email, $password)) {
-            session_start();
+            
             $_SESSION['email'] = $email;
             
             header("Location: index.php");
         }else{
-            $error="Email e/o password errate!";
-            require('./login.php');
+            $_SESSION['error'] ="Email e/o password errate!";
+            header("Location: login.php");
         }
     } else {
         // Gestisci il caso in cui i dati non siano presenti
-        $error = "Email e/o password mancanti!";
-        require('./login.php');
+        $_SESSION['error'] = "Email e/o password mancanti!";
+        header("Location: login.php");
         exit;
     }
 } else {
-    $error = "Il modulo non è stato inviato correttamente.";
-    require('./login.php');
+    $_SESSION['error'] = "Il modulo non è stato inviato correttamente.";
+    header("Location: login.php");
     exit;
 }
 

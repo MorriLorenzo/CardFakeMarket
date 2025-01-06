@@ -5,6 +5,10 @@ if(isset($_SESSION['email'])){
 }else{
     require_once("bootstrapt.php");
 
+    if(isset($_SESSION['error'])){
+        $error = $_SESSION['error'];
+        unset($_SESSION['error']);
+    }
     #nome pagina da visualizzare nel base
     $page = "form_register.php";
 

@@ -10,6 +10,21 @@ class DatabaseHelper{
         }        
     }
 
+    //dato un numero e un gioco, prende carte randomico di esso, restituisce solo il path image
+    public function getRandomCards($n,$game){
+        $stmt = $this->db->prepare("SELECT * FROM CARD JOIN GAMESET ON CARD.set_code=GAMESET.code 
+                                    JOIN GAME ON GAME.name=GAMESET.game_name 
+                                    WHERE GAME.name = ? ORDER BY RAND() LIMIT ?");
+        $stmt->bind_param('si',$game,$n);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $cards = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        return $cards;
+    }
+
     public function getGames(){
         $query = "SELECT * FROM GAME";
         $stmt = $this->db->prepare($query);

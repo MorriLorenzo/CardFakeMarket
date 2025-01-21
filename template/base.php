@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <title>CardFakeMarket</title>
     <!-- Includi Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fuild p-0 overflow-visible justify-content-center mb-6" >
@@ -70,5 +70,6 @@
         echo $_SESSION['email'];
     } ?>
 -->
+<script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
-<div class="orders">
+<div class="orders m-3">
+    <h1>Your orders</h1>
     <?php foreach ($orders as $order): ?>
-        <div class="order-card position-relative border p-3 rounded shadow-sm bg-light">
+        <div class="order-card position-relative border p-3 rounded shadow-sm bg-light mb-3">
             <p>Order Id: <?php echo $order['id'] ?></p>
             <p>Date: <?php echo $order['order_date'] ?></p>
             <p>Total quantity: <?php echo $order['quantity'] ?></p>

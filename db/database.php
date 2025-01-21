@@ -80,5 +80,33 @@ class DatabaseHelper{
         $stmt->close();
     
         return $orders;
-    }    
+    }
+    
+    function getOrderDetail($orderId) {
+        $query = "SELECT * FROM `order_card` WHERE order_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+    
+        $orderDetail = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    
+        return $orderDetail;
+    }
+
+    function getCardById($cardCode) {
+        $query = "SELECT * FROM `card` WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $cardCode);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+    
+        $card = $result->fetch_assoc();
+        $stmt->close();
+    
+        return $card;
+    }
 }

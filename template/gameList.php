@@ -1,4 +1,4 @@
 <?php
-//lista giochi selezionabili
+
 
 ?>

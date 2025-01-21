@@ -28,6 +28,25 @@ class DatabaseHelper{
         return $games;
     }
 
+    public function getGameSets($game){
+        $query = "SELECT name FROM GAMESET WHERE GAME_NAME = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $game);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $sets = array();
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo all'array
+                $sets[] = $row['name'];
+            }
+        }
+        return $sets;
+    }
+
     public function checkUser($email, $password){
         $query = "SELECT * FROM USER WHERE Email = ? AND Password = ?";
         $stmt = $this->db->prepare($query);

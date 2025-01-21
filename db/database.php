@@ -67,4 +67,18 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return ($result->num_rows > 0);
     }
+
+    function getOrdersByEmail($email) {
+        $query = "SELECT * FROM `order` WHERE user_email = ? ORDER BY order_date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+    
+        $orders = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    
+        return $orders;
+    }    
 }

@@ -109,4 +109,44 @@ class DatabaseHelper{
     
         return $card;
     }
+
+    function isAdmin($email) {
+        $query = "SELECT * FROM user WHERE email = ? AND is_admin = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+    
+        $isAdmin = $result->fetch_assoc();
+        $stmt->close();
+    
+        return $isAdmin !== null; // Se esiste un risultato, ritorna true; altrimenti, false
+    }
+    
+    function insertGame($gameName) {
+        $query = "INSERT INTO game (name) VALUES (?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $gameName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result;
+    }
+
+    function insertGameSet($name, $date, $game) {
+        $query = "INSERT INTO gameset (name, date, game_name) VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sss', $name, $date, $game);
+        $stmt->execute();
+    
+        $insertId = $this->db->insert_id; // Ottieni l'ID dell'inserimento (valore di 'code')
+        $stmt->close();
+    
+        return $insertId;
+    }
+    /*
+    function insertCard(...){
+        //TODO
+    }*/
 }

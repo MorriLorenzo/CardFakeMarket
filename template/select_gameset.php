@@ -1,8 +1,47 @@
 <div class="container">
-    <h1 class="text-center fw-bold">SELECT SET</h1>
+    <nav class="navbar navbar-expand-lg justify-content-center">
+        <div class="container-fluid justify-content-center">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                <!--- a -->
+                <form class="d-flex justify-content-center" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
+                    <input type="hidden" id="language-input" name="language">
+                    <input type="hidden" id="set-input" name="set">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="dropdown">
+                    <img src="img/filter.png" alt="Dropdown" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-submenu position-relative">
+                            <a class="dropdown-item dropdown-toggle" href="#">Filter for language</a>
+                            <ul class="dropdown-menu position-absolute" style="left: 100%; top: 0;">
+                                <?php 
+                                $languages = $dbh->getLanguages();
+                                foreach ($languages as $language): ?>
+                                    <li><a class="dropdown-item language-item" href="#" data-language="<?php echo $language; ?>"><?php echo $language; ?></a></li>
+                                <?php endforeach; ?> 
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu position-relative">
+                            <a class="dropdown-item dropdown-toggle" href="#">Filter for set</a>
+                            <ul class="dropdown-menu position-absolute" style="left: 100%; top: 0;">
+                                <?php 
+                                $sets = $dbh->getGameSets($game);
+                                foreach ($sets as $set): ?>
+                                    <li><a class="dropdown-item gameset-item" href="#" data-set="<?php echo $set; ?>"><?php echo $set; ?></a></li>
+                                <?php endforeach; ?> 
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-
-    <div id="carouselExampleIndicators" class="carousel slide mb-4 mx-auto" style="max-width: 600px;"> 
+    <div id="carouselExampleIndicators" class="carousel slide mb-4 mx-auto" style="max-width: 300px;"> 
         <?php $cards = $dbh->getRandomCards("3", $game); ?>
 
         <div class="carousel-indicators">
@@ -12,13 +51,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?php echo $cards[0]['image']; ?>" class="d-block w-100" alt="1">
+                <img src="<?php echo $cards[0]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[0]['description']; ?>">
             </div>
             <div class="carousel-item">
-                <img src="<?php echo $cards[1]['image']; ?>" class="d-block w-100" alt="2">
+                <img src="<?php echo $cards[1]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[1]['description']; ?>">
             </div>
             <div class="carousel-item">
-                <img src="<?php echo $cards[2]['image']; ?>" class="d-block w-100" alt="3">
+                <img src="<?php echo $cards[2]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[2]['description']; ?>">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -35,25 +74,21 @@
     <div class="d-flex flex-wrap justify-content-center gap-3">
         <?php foreach ($sets as $set): ?>
             <?php 
-                // Percorso dell'immagine
                 $imagePath = "img/" . $set . ".png";
-                // Verifica se l'immagine esiste
                 $imageExists = file_exists($imagePath);
             ?>
             <a href="home.php" id="<?php echo $set; ?>" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center justify-content-center border mb-4"
-
                     style="height: 200px; width: 200px; font-size: 1.2rem; 
                     <?php if ($imageExists): ?>
                         background: url('<?php echo $imagePath; ?>') no-repeat center center; background-size: cover;
                     <?php endif; ?>">
-                    
                     <?php if (!$imageExists): ?>
                         <?php echo $set; ?>
                     <?php endif; ?>
-                    
                 </div>
             </a>
-        <?php endforeach; ?>
+        <?php endforeach; ?> <!-- Correzione: chiusura del foreach -->
     </div>
 </div>
+<script src="bootstrap/dropdown.js"></script>

@@ -57,3 +57,46 @@ header h1 {
     background-color: rgb(0, 48, 191) !important;
     color: white !important;
 }
+
+.language-item.selected {
+    background-color: rgb(255, 145, 0) !important; /* Forza il colore per lo stato selezionato */
+    color: white !important;
+}
+
+.language-item:hover {
+    background-color: inherit; /* Mantieni il colore originale durante il passaggio */
+    color: inherit;
+}
+
+.gameset-item.selected {
+    background-color: rgb(255, 145, 0) !important; /* Forza il colore per lo stato selezionato */
+    color: white !important;
+}
+
+.gameset-item:hover {
+    background-color: inherit; /* Mantieni il colore originale durante il passaggio */
+    color: inherit;
+}
+.card-container {
+    display: flex !important; 
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+.card {
+    margin: 10px;
+    flex: 1 1 100% !important; /* Full width on small screens */
+    box-sizing: border-box !important;
+    max-width: 100% !important; /* Ensure cards do not exceed 100% of the container width on small screens */
+}
+@media (min-width: 600px) {
+    .card {
+        flex: 1 1 calc(50% - 20px) !important; /* 50% width minus margin */
+        max-width: 50% !important; /* Ensure cards do not exceed 50% of the container width */
+    }
+}
+@media (min-width: 900px) {
+    .card {
+        flex: 1 1 calc(33.33% - 20px) !important; /* 33.33% width minus margin */
+        max-width: 33.33% !important; /* Ensure cards do not exceed 33.33% of the container width */
+    }
+}

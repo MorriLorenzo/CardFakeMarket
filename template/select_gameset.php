@@ -72,12 +72,16 @@
 
     <!-- Griglia dei set -->
     <div class="d-flex flex-wrap justify-content-center gap-3">
-        <?php foreach ($sets as $set): ?>
-            <?php 
-                $imagePath = "img/" . $set . ".png";
-                $imageExists = file_exists($imagePath);
-            ?>
-            <a href="home.php" id="<?php echo $set; ?>" style="text-decoration: none; color: inherit;">
+    <?php foreach ($sets as $set): ?>
+        <?php 
+            $imagePath = "img/" . $set . ".png";
+            $imageExists = file_exists($imagePath);
+        ?>
+        <form action="index.php?page=card_table.php&game=<?php echo $game; ?>" method="POST" style="display: inline;">
+            <input type="hidden" name="set" value="<?php echo $set; ?>">
+            <input type="hidden" name="language" value="">
+            <input type="hidden" name="name" value="">
+            <button type="submit" id="<?php echo $set; ?>" style="border: none; background: none; text-decoration: none; color: inherit; padding: 0;">
                 <div class="d-flex align-items-center justify-content-center border mb-4"
                     style="height: 200px; width: 200px; font-size: 1.2rem; 
                     <?php if ($imageExists): ?>
@@ -87,8 +91,10 @@
                         <?php echo $set; ?>
                     <?php endif; ?>
                 </div>
-            </a>
-        <?php endforeach; ?> <!-- Correzione: chiusura del foreach -->
-    </div>
+            </button>
+        </form>
+    <?php endforeach; ?>
+</div>
+
 </div>
 <script src="bootstrap/dropdown.js"></script>

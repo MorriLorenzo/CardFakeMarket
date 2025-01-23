@@ -145,8 +145,40 @@ class DatabaseHelper{
     
         return $insertId;
     }
-    /*
-    function insertCard(...){
-        //TODO
-    }*/
+    function insertCard($language, $image, $description, $set, $quantity, $price) {
+        $query = "INSERT INTO card (language, image, description, set_code, quantity, price) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssssid', $language, $image, $description, $set, $quantity, $price);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    function getSets() {
+        $query = "SELECT * FROM GAMESET";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $sets = array();
+        
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo la riga come array associativo
+                $sets[] = $row;
+            }
+        }
+        
+        return $sets;
+    }
+    
+    function getNextId($tableName){
+        $query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'cardfakemarket' AND TABLE_NAME = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $tableName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['AUTO_INCREMENT'];
+    }
 }

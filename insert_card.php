@@ -11,6 +11,7 @@ if(!isset($_SESSION['email'])){
         exit();
     }
     //chiedi a morbi
+    $setts=$dbh->getSets();
     $page = "insert_card.php";
     require 'template/base.php';
 }

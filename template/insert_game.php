@@ -1,6 +1,6 @@
 <div class="card mx-auto mt-5" style="max-width: 400px;">
   <div class="card-body">
-    <h5 class="card-title text-center">Insert Game Name</h5>
+    <h5 class="card-title text-center">Insert New Game</h5>
     <form action="submit_game.php" method="POST">
       <div class="mb-3">
         <label for="game-name" class="form-label">Game Name</label>

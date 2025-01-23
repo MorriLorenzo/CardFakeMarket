@@ -17,7 +17,7 @@
   <a href="insert_gameset.php" class="text-decoration-none mb-3 w-50">
     <button type="button" class="btn btn-success btn-lg w-100">Insert Set</button>
   </a>
-  <a href="#" class="text-decoration-none mb-3 w-50">
+  <a href="insert_card.php" class="text-decoration-none mb-3 w-50">
     <button type="button" class="btn btn-success btn-lg w-100">Insert Card</button>
   </a>
 </div>

@@ -36,19 +36,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (selectedLanguage === item.getAttribute('data-language')) {
                         selectedLanguage = null;
                         item.classList.remove('selected');
+                        document.getElementById('language-input').value = "";
                     } else {
                         selectedLanguage = item.getAttribute('data-language');
                         items.forEach(el => el.classList.remove('selected'));
                         item.classList.add('selected');
+                        document.getElementById('language-input').value = selectedLanguage;
                     }
                 } else if (type === 'set') {
                     if (selectedSet === item.getAttribute('data-set')) {
                         selectedSet = null;
                         item.classList.remove('selected');
+                        document.getElementById('set-input').value = "";
                     } else {
                         selectedSet = item.getAttribute('data-set');
                         items.forEach(el => el.classList.remove('selected'));
                         item.classList.add('selected');
+                        document.getElementById('set-input').value = selectedSet;
                     }
                 }
             });

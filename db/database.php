@@ -10,7 +10,7 @@ class DatabaseHelper{
         }        
     }
 
-    function getFilteredCards($game, $language, $set, $name) {
+    function getFilteredCards($game, $set, $language, $name) {
         // Costruisci dinamicamente la query in base ai parametri passati
         $query = "SELECT C.code,C.description,C.image,C.price,C.quantity,GS.name FROM CARD AS C
                                     JOIN GAMESET AS GS ON C.set_code=GS.code 
@@ -39,7 +39,6 @@ class DatabaseHelper{
             $params[] = $name;
             $paramTypes .= 's'; // 's' per stringa
         }
-        
         // Prepara la query
         $stmt = $this->db->prepare($query);
     

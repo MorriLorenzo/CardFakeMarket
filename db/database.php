@@ -181,4 +181,26 @@ class DatabaseHelper{
         $row = $result->fetch_assoc();
         return $row['AUTO_INCREMENT'];
     }
+
+    function deleteGame($gameName) {
+        $query = "DELETE FROM game WHERE name = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $gameName);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    /**
+     * Solo se non ha set associati
+     * @param mixed $gameName
+     * @param mixed $newGameName
+     * @return void
+     */
+    function editGame($gameName, $newGameName) {
+        $query = "UPDATE game SET name = ? WHERE name = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $newGameName, $gameName);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

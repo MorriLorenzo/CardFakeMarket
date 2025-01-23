@@ -10,7 +10,6 @@ if(!isset($_SESSION['email'])){
         header("Location: index.php");
         exit();
     }
-    //chiedi a morbi
     $setts=$dbh->getSets();
     $page = "insert_card.php";
     require 'template/base.php';

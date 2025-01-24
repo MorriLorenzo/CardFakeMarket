@@ -257,4 +257,12 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function editCard($code, $language, $image, $description, $set, $quantity, $price) {
+        $query = "UPDATE card SET language = ?, image = ?, description = ?, set_code = ?, quantity = ?, price = ? WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssssidi', $language, $image, $description, $set, $quantity, $price, $code);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

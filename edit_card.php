@@ -10,10 +10,10 @@ if(!isset($_SESSION['email'])){
         header("Location: index.php");
         exit();
     }
-    $card=$_POST['code'];
-    unlink($dbh->getCardById($card)['image']);
-    $dbh->deleteCard($card);
-    header("Location: md_card.php");
+    $code=$_POST['code'];
+    $card = $dbh->getCardById($code);
+    $edit=true;
+    $setts=$dbh->getSets();
+    $page = "insert_card.php";
+    require 'template/base.php';
 }
-
-?>

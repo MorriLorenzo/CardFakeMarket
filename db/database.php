@@ -249,4 +249,12 @@ class DatabaseHelper{
         
         return $cards;
     }
+
+    function deleteCard($cardCode) {
+        $query = "DELETE FROM card WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $cardCode);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

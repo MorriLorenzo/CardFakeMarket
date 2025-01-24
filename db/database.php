@@ -265,4 +265,36 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function getNotificationByEmail($email){
+        $query = "SELECT * FROM notification WHERE user_email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $notifications = array();
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo all'array
+                $notifications[] = $row;
+            }
+        }
+        return $notifications;
+    }
+
+    function markAsRead($id){
+        $query = "UPDATE notification SET status = 1 WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
+    function deleteNotification($id){
+        $query = "DELETE FROM notification WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
 }

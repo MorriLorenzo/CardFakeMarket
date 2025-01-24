@@ -2,7 +2,7 @@
   <a href="md_game.php" class="text-decoration-none mb-3 w-50">
     <button type="button" class="btn btn-primary btn-lg w-100">Edit Game</button>
   </a>
-  <a href="#" class="text-decoration-none mb-3 w-50">
+  <a href="md_gameset.php" class="text-decoration-none mb-3 w-50">
     <button type="button" class="btn btn-primary btn-lg w-100">Edit Set</button>
   </a>
   <a href="#" class="text-decoration-none mb-3 w-50">

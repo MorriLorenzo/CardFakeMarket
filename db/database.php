@@ -203,4 +203,31 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function deleteGameSet($gameSetCode) {
+        $query = "DELETE FROM gameset WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $gameSetCode);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    function getGameSet($gameSetCode) {
+        $query = "SELECT * FROM gameset WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $gameSetCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $gameSet = $result->fetch_assoc();
+        $stmt->close();
+        return $gameSet;
+    }
+
+    function editGameSet($gameSetCode, $name, $date, $game) {
+        $query = "UPDATE gameset SET name = ?, date = ?, game_name = ? WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssi', $name, $date, $game, $gameSetCode);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

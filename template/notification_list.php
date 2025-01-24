@@ -9,9 +9,8 @@
                         <?php if ($isUnread): ?>
                             <span class="text-primary">&#9679;</span>
                         <?php endif; ?>
-                        Notification Id: <?php echo $notification['id']; ?>
+                        Message: <?php echo $notification['message']; ?>
                     </p>
-                    <p>Message: <?php echo $notification['message']; ?></p>
                     <div class="d-flex justify-content-end">
                         <?php if ($isUnread): ?>
                             <form action="mark_as_read.php" method="post" class="me-2">

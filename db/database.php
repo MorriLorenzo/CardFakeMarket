@@ -267,7 +267,7 @@ class DatabaseHelper{
     }
 
     function getNotificationByEmail($email){
-        $query = "SELECT * FROM notification WHERE user_email = ?";
+        $query = "SELECT * FROM notification WHERE user_email = ? ORDER BY id DESC";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $email);
         $stmt->execute();

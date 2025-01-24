@@ -10,6 +10,26 @@ class DatabaseHelper{
         }        
     }
 
+    public function getGameSetByCardCode($code){
+        $stmt = $this->db->prepare("SELECT GAMESET.game_name, GAMESET.name FROM CARD JOIN GAMESET ON CARD.set_code=GAMESET.code WHERE CARD.code = ?");
+        $stmt->bind_param('s', $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $gameSet = $result->fetch_row();
+        $stmt->close();
+        return $gameSet;
+    }
+    
+    public function getCardById($id){
+        $stmt = $this->db->prepare("SELECT * FROM CARD WHERE code = ?");
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $card = $result->fetch_assoc();
+        $stmt->close();
+        return $card;
+    }
+
     function getFilteredCards($game, $set, $language, $name) {
         // Costruisci dinamicamente la query in base ai parametri passati
         $query = "SELECT C.code,C.description,C.image,C.price,C.quantity,GS.name FROM CARD AS C

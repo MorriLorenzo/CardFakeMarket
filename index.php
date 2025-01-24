@@ -26,6 +26,10 @@ switch ($page) {
         }
         $cards = $dbh->getFilteredCards($game, $set, $language, $name);
         break;
+    case "card_detail.php":
+        $id = $_GET['id'];
+        $card = $dbh->getCardById($id);
+        break;
     default:
         $page = "select_game.php";
         $games = $dbh->getGames();

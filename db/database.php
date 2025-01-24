@@ -230,4 +230,23 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function getCards() {
+        $query = "SELECT * FROM card";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $cards = array();
+        
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo la riga come array associativo
+                $cards[] = $row;
+            }
+        }
+        
+        return $cards;
+    }
 }

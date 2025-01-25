@@ -1,3 +1,8 @@
+<?php
+// Se $edit non è definito, impostalo a false
+$edit = isset($edit) ? $edit : false;
+?>
+
 <div class="d-flex justify-content-center align-items-start vh-100" style="padding-top: 50px;">
     <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
         <form action="<?php echo $edit ? './ce_user.php' : './registerprocess.php'; ?>" method="POST">
@@ -9,22 +14,22 @@
 
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required value="<?php echo $edit ? htmlspecialchars($user['first_name']) : ''; ?>">
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required value="<?php echo isset($user['first_name']) ? htmlspecialchars($user['first_name']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="last_name" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required value="<?php echo $edit ? htmlspecialchars($user['last_name']) : ''; ?>">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required value="<?php echo isset($user['last_name']) ? htmlspecialchars($user['last_name']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required value="<?php echo $edit ? htmlspecialchars($user['address']) : ''; ?>">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required value="<?php echo isset($user['address']) ? htmlspecialchars($user['address']) : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="<?php echo $edit ? htmlspecialchars($user['email']) : ''; ?>" <?php echo $edit ? 'readonly' : ''; ?>>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required value="<?php echo isset($user['email']) ? htmlspecialchars($user['email']) : ''; ?>" <?php echo $edit ? 'readonly' : ''; ?>>
             </div>
 
             <div class="mb-3">

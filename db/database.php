@@ -307,4 +307,28 @@ class DatabaseHelper{
         $notification = $result->fetch_assoc();
         return $notification;
     }
+
+    function getUser($email){
+        $query = "SELECT * FROM user WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        return $user;
+    }
+
+    function updateUser($email, $firstName, $lastName, $address, $password){
+        $query = "UPDATE user SET first_name = ?, last_name = ?, address = ?, password = ? WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssss', $firstName, $lastName, $address, $password, $email);
+        $stmt->execute();
+    }
+
+    function deleteUser($email){
+        $query = "DELETE FROM user WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    }
 }

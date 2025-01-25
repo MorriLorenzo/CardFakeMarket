@@ -2,6 +2,10 @@
 session_start();
 require_once("../bootstrapt.php");
 
+if(!isset($_SESSION['email'])){
+    exit();
+}
+
 $email=$_SESSION['email'];
 $notifications=$dbh->getNotificationByEmail($email);
 

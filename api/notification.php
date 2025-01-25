@@ -2,17 +2,26 @@
 session_start();
 require_once("../bootstrapt.php");
 
-$email=$_SESSION['email'];
-$notification=$dbh->getLastNotificationByEmail($email);
-if(!isset($_SESSION['last'])){
-    $_SESSION['last']=0;
-}else{
-    $last=$_SESSION['last'];
+if(!isset($_SESSION['email'])){
+    exit();
 }
 
+$email = $_SESSION['email'];
+$notification = $dbh->getLastNotificationByEmail($email);
 
-if($notification['id']>$last){
+// Initialize $last if not already set in session
+if (!isset($_SESSION['last'])) {
+    $_SESSION['last'] = 0;
+}
 
+// Set $last from session
+$last = $_SESSION['last']; 
+
+if ($last === null) {
+    $last = 0;
+}
+
+if (is_array($notification) && isset($notification['id']) && $notification['id'] > $last) {
     $output = ''; // Variabile per memorizzare l'esito
 
     ob_start(); // Inizia l'output buffering
@@ -45,9 +54,9 @@ if($notification['id']>$last){
 
     <?php
     $output = ob_get_clean(); // Salva il contenuto dell'output buffer nella variabile
-    $_SESSION['last']=$notification['id'];
+    $_SESSION['last'] = $notification['id'];
     echo $output; // Stampa l'esito
-}else{
-    $_SESSION['last']=$notification['id'];
+} else {
+    $_SESSION['last'] = isset($notification['id']) ? $notification['id'] : 0;
 }
 ?>

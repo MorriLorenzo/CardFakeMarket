@@ -69,6 +69,17 @@ class DatabaseHelper{
         }
     }
 
+    public function getStock($cardCode) {
+        $query = "SELECT quantity FROM card WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $cardCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stock = $result->fetch_assoc();
+        $stmt->close();
+        return $stock['quantity'];
+    }
+
     public function insertCart($userEmail){
         $query = 'INSERT INTO `cart` (`user_email`) VALUES (?)';
         $stmt = $this->db->prepare($query);
@@ -132,6 +143,22 @@ class DatabaseHelper{
         $stmt->execute();
     }
     
+    public function getCartItemCount($userEmail) {
+        $query = "SELECT COUNT(*) as item_count FROM cart_card cc
+                  JOIN cart ca ON ca.id = cc.cart_id
+                  WHERE ca.user_email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['item_count'];
+        $stmt->close();
+        
+        // Echo JSON direttamente dalla funzione
+        echo json_encode(['item_count' => $count]);
+        // DAVERIFICARE
+        return $count;
+    }
 
 
     public function removeAllItemsFromCart($userEmail) {
@@ -333,6 +360,8 @@ class DatabaseHelper{
         $stmt->close();
     }
 
+    
+
     function editCard($code, $language, $image, $description, $set, $quantity, $price) {
         $query = "UPDATE card SET language = ?, image = ?, description = ?, set_code = ?, quantity = ?, price = ? WHERE code = ?";
         $stmt = $this->db->prepare($query);
@@ -340,4 +369,27 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function insertOrder($user_email, $quantity, $total_price) {
+        $query = "INSERT INTO `order` (`order_date`, `quantity`, `total_price`, `user_email`)
+                  VALUES (NOW(), ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ids', $quantity, $total_price, $user_email);
+        $stmt->execute();
+        return $this->db->insert_id;
+    }
+
+
+
+    function insertOrderCard($order_id, $card_code, $quantity) {
+        $query = "INSERT INTO `order_card` (`order_id`, `card_code`, `quantity`)
+                  VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('iii', $order_id, $card_code, $quantity);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
 }
+?>

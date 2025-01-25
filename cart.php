@@ -52,6 +52,7 @@ if(isset($_SESSION['email'])){
         }
         header('Location: loading.php'); // Reindirizza alla pagina di caricamento
         exit;  
+        exit;  
     }
 
     // Funzione per rimuovere un articolo dal carrello

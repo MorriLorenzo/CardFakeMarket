@@ -72,6 +72,17 @@ class DatabaseHelper{
         }
     }
 
+    public function getStock($cardCode) {
+        $query = "SELECT quantity FROM card WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $cardCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stock = $result->fetch_assoc();
+        $stmt->close();
+        return $stock['quantity'];
+    }
+
     public function insertCart($userEmail){
         $query = 'INSERT INTO `cart` (`user_email`) VALUES (?)';
         $stmt = $this->db->prepare($query);
@@ -377,6 +388,8 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    
 
     
 

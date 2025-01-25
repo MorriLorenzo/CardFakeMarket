@@ -29,12 +29,12 @@ class DatabaseHelper{
     }
 
     public function checkUser($email, $password){
-        $query = "SELECT * FROM USER WHERE Email = ? AND Password = ?";
+        $query = "SELECT * FROM USER WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $email, $password);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        return ($result->num_rows > 0);
+        return ($result->num_rows > 0  && password_verify($password, $result->fetch_assoc()['password']));
     }
 
     //Gestione carrello per i bottoni di rimozione, aggiunta e sottrazione
@@ -70,17 +70,6 @@ class DatabaseHelper{
         } else {
             return false;
         }
-    }
-
-    public function getStock($cardCode) {
-        $query = "SELECT quantity FROM card WHERE code = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i', $cardCode);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stock = $result->fetch_assoc();
-        $stmt->close();
-        return $stock['quantity'];
     }
 
     public function insertCart($userEmail){
@@ -399,6 +388,72 @@ class DatabaseHelper{
         $stmt->bind_param('ssssidi', $language, $image, $description, $set, $quantity, $price, $code);
         $stmt->execute();
         $stmt->close();
+    }
+
+    function getNotificationByEmail($email){
+        $query = "SELECT * FROM notification WHERE user_email = ? ORDER BY id DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $notifications = array();
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo all'array
+                $notifications[] = $row;
+            }
+        }
+        return $notifications;
+    }
+
+    function markAsRead($id){
+        $query = "UPDATE notification SET status = 1 WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
+    function deleteNotification($id){
+        $query = "DELETE FROM notification WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
+
+    function getLastNotificationByEmail($email){
+        $query = "SELECT * FROM notification WHERE user_email = ? ORDER BY id DESC LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notification = $result->fetch_assoc();
+        return $notification;
+    }
+
+    function getUser($email){
+        $query = "SELECT * FROM user WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        return $user;
+    }
+
+    function updateUser($email, $firstName, $lastName, $address, $password){
+        $query = "UPDATE user SET first_name = ?, last_name = ?, address = ?, password = ? WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssss', $firstName, $lastName, $address, $password, $email);
+        $stmt->execute();
+    }
+
+    function deleteUser($email){
+        $query = "DELETE FROM user WHERE email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
     }
 
     function insertOrder($user_email, $quantity, $total_price) {

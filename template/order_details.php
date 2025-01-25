@@ -13,7 +13,7 @@
         </div>
         <?php $id++; ?>
     <?php endforeach; ?>
-    <a href="orders.php">
+    <a href="<?php echo isset($notification) ? 'notifications.php' : 'orders.php'; ?>">
         <button class="btn btn-primary position-absolute end-0 mb-2 me-2">Back</button>
     </a>
 </div>

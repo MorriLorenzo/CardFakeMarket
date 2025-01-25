@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
+        //$password = password_hash($password, PASSWORD_DEFAULT);
         
         if($dbh->checkUser($email, $password)) {
             
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: index.php");
         }else{
             $_SESSION['error'] ="Email e/o password errate!";
+            
             header("Location: login.php");
         }
     } else {

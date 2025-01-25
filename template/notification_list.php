@@ -8,10 +8,19 @@
                     <p>
                         <?php if ($isUnread): ?>
                             <span class="text-primary">&#9679;</span>
-                        <?php endif; ?>
-                        Message: <?php echo $notification['message']; ?>
-                    </p>
+                        <?php endif; ?>Message: <?php echo $notification['message']; ?></p>
                     <div class="d-flex justify-content-end">
+                        <?php if (!empty($notification['card_code'])): ?>
+                            <form action="edit_card.php" method="post" class="me-2">
+                                <input type="hidden" name="code" value="<?php echo $notification['card_code']; ?>">
+                                <button type="submit" class="btn btn-warning">Reload Availability</button>
+                            </form>
+                        <?php elseif (!empty($notification['order_id'])): ?>
+                            <form action="order_detail.php?id=<?php echo $notification['order_id']; ?>" method="post" class="me-2">
+                                <input type="hidden" name="notification" value="1">
+                                <button type="submit" class="btn btn-info">View Order</button>
+                            </form>
+                        <?php endif; ?>
                         <?php if ($isUnread): ?>
                             <form action="mark_as_read.php" method="post" class="me-2">
                                 <input type="hidden" name="notification_id" value="<?php echo $notification['id']; ?>">

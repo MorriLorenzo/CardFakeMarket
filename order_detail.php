@@ -6,6 +6,9 @@ if(!isset($_SESSION['email'])){
     exit();
 }else{
     $order_id = $_GET['id'];
+    if(isset($_POST['notification'])){
+        $notification=true;
+    }
     $page = "order_details.php";
     $order_cards = $dbh->getOrderDetail($order_id);
     $cards=[];

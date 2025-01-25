@@ -343,5 +343,24 @@ header .container {
         height: 45px;
     }
 }
+.filter {
+    margin-right: 8px; /* Distanza tra il filtro e il campo di ricerca */
+    display: flex;
+    align-items: center; /* Assicura che il filtro sia allineato verticalmente */
+}
 
-/* Restante parte del CSS (può rimanere invariato per il resto) */
+/* Colore di default per il bottone Search */
+.btn-outline-success {
+    background-color: #28a745 !important;  /* Verde chiaro */
+    color: white !important;  /* Testo bianco */
+    border-color: #28a745 !important;  /* Confine verde chiaro */
+}
+
+/* Colore del bottone quando il cursore è sopra */
+.btn-outline-success:hover {
+    background-color: #218838 !important;  /* Un verde più scuro per l'effetto hover */
+    border-color: #218838 !important;  /* Un verde più scuro per il confine hover */
+}
+.keep-open .dropdown-menu {
+    display: block; /* Mantiene il menu visibile */
+  }

@@ -1,17 +1,14 @@
 <div class="container">
-    <nav class="navbar navbar-expand-lg justify-content-center">
-        <div class="container-fluid justify-content-center">
-            <div class="justify-content-center" id="navbarSupportedContent">
-                <!--- a -->
-                <form class="d-flex justify-content-center" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
-                    <input type="hidden" id="language-input" name="language">
-                    <input type="hidden" id="set-input" name="set">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <div class="dropdown">
+<nav class="navbar navbar-light bg-light justify-content-center">
+    <div class="container-fluid justify-content-center">
+        <div class="d-flex w-100 justify-content-center align-items-center">
+            <!-- Search Form -->
+            <form class="d-flex justify-content-center w-100" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
+                <!-- Filter Dropdown Icon -->
+                <div class="dropdown filter me-2"> <!-- Spostato prima del bottone Search -->
                     <img src="img/filter.png" alt="Dropdown" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
                     <ul class="dropdown-menu">
+                        <!-- Language Filter -->
                         <li class="dropdown-submenu position-relative">
                             <a class="dropdown-item dropdown-toggle" href="#">Filter for language</a>
                             <ul class="dropdown-menu position-absolute" style="left: 100%; top: 0;">
@@ -22,6 +19,7 @@
                                 <?php endforeach; ?> 
                             </ul>
                         </li>
+                        <!-- Set Filter -->
                         <li class="dropdown-submenu position-relative">
                             <a class="dropdown-item dropdown-toggle" href="#">Filter for set</a>
                             <ul class="dropdown-menu position-absolute" style="left: 100%; top: 0;">
@@ -34,9 +32,16 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name" style="max-width: 250px;">
+                <input type="hidden" id="language-input" name="language">
+                <input type="hidden" id="set-input" name="set">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
-    </nav>
+    </div>
+</nav>
+
+
 
     <div id="carouselExampleIndicators" class="carousel slide mb-4 mx-auto" style="max-width: 300px;"> 
         <?php $cards = $dbh->getRandomCards("3", $game); ?>

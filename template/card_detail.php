@@ -9,14 +9,19 @@
                 <p id="total-price" data-unit-price="<?php echo htmlspecialchars($card['price']); ?>">
                     Prezzo totale: € <?php echo htmlspecialchars($card['price']); ?>
                 </p>
-                <input type="number" id="quantity" name="quantity" min="1" max="<?php echo htmlspecialchars($card['quantity']); ?>" value="1" style="width: 50%;">
-                <a href="add_to_cart.php?id=<?php echo urlencode($card['code']); ?>" class="btn btn-success" style="margin-top: 10px;">Aggiungi al carrello</a>
+                <!-- Un unico form per aggiungere al carrello -->
+                <form id="cart-form" method="POST" action="add_to_cart.php">
+                    <input type="number" id="quantity" name="quantity" min="1" max="<?php echo htmlspecialchars($card['quantity']); ?>" value="1" style="width: 50%;">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($card['code']); ?>">
+                    <button type="submit" class="btn btn-success" style="margin-top: 10px;" >Aggiungi al carrello</button>
+                </form>
             <?php } else { ?>
                 <p>Per acquistare effettua il <a href="login.php">login</a></p>
-                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 </div>
+
 
 <h3>Prodotti simili</h3>
 

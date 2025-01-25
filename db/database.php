@@ -10,6 +10,50 @@ class DatabaseHelper{
         }        
     }
 
+    public function getCartByUserEmail($email){
+        $stmt = $this->db->prepare("SELECT * FROM CART WHERE user_email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cart = $result->fetch_assoc();
+        $stmt->close();
+        return $cart;
+    }
+
+    public function AddToCart($cardCode,$userEmail,$orderQuantity){
+
+        $cart = $this->getCartByUserEmail($userEmail);
+
+        $stmt = $this->db->prepare("SELECT quantity FROM CART_CARD AS CC WHERE cc.card_code = ? AND cc.cart_id = ?");
+        $stmt->bind_param('is', $cardCode, $cart['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Verifica se è stato trovato un risultato
+        if ($result->num_rows == 1) {
+
+            while ($row = $result->fetch_assoc()) {
+                // Aggiungo all'array
+                $quantity = $row['quantity'];
+            }
+        }
+        if($quantity == ""){
+            $stmt = $this->db->prepare("INSERT INTO CART_CARD (card_code, cart_id, quantity) VALUES (?, ?, ?)");
+            $stmt->bind_param('ssi', $cardCode, $cart['id'], $orderQuantity);
+            $stmt->execute();
+            $stmt->close();
+        }else{
+            $quantity += (int) $orderQuantity;
+            var_dump($quantity);
+            $stmt = $this->db->prepare("UPDATE CART_CARD SET quantity = ? WHERE card_code = ? AND cart_id = ?");
+            $stmt->bind_param('sss', $quantity, $cardCode, $cart['id']);
+            $stmt->execute();
+            $stmt->close();
+        }
+        return true;
+    }
+
+
     public function getGameSetByCardCode($code){
         $stmt = $this->db->prepare("SELECT GAMESET.game_name, GAMESET.name FROM CARD JOIN GAMESET ON CARD.set_code=GAMESET.code WHERE CARD.code = ?");
         $stmt->bind_param('s', $code);

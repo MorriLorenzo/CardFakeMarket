@@ -297,4 +297,14 @@ class DatabaseHelper{
         $stmt->bind_param('i', $id);
         $stmt->execute();
     }
+
+    function getLastNotificationByEmail($email){
+        $query = "SELECT * FROM notification WHERE user_email = ? ORDER BY id DESC LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notification = $result->fetch_assoc();
+        return $notification;
+    }
 }

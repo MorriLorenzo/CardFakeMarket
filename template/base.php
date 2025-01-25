@@ -43,14 +43,23 @@
 
                 <?php else: ?>
                 <!-- da sistemare per bene con home -->
-                <nav>
-                    <ul class="list-unstyled d-flex mb-0">
-                        <li class="ms-3">
-                            <a href="logout.php">
-                                <button class="btn" id="logout">Logout</button>
-                            </a>
-                        </li>
-                    </ul>
+                <nav class="d-flex justify-content-end w-100">
+                    <div class="d-flex align-items-center ms-3">
+                        <a href="CARRELLLLLLLLLLLLLLLLL.php" class="me-3">
+                            <img src="img/cart.png" alt="cart" class="img-thumbnail bg-transparent cart-icon">
+                        </a>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; padding: 0;">
+                                <img src="img/user.png" alt="user" class="img-thumbnail bg-transparent user-icon">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="edit_user.php">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
+                                <li><a class="dropdown-item" href="notifications.php">Notifications</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </nav>
 
                 <?php endif; ?>

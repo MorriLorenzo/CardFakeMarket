@@ -1,10 +1,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg justify-content-center">
         <div class="container-fluid justify-content-center">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <div class="justify-content-center" id="navbarSupportedContent">
                 <!--- a -->
                 <form class="d-flex justify-content-center" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">

@@ -1,3 +1,4 @@
+/* Stile generale header */
 header {
     background-color: rgb(0, 64, 255); 
     box-sizing: border-box;
@@ -18,9 +19,9 @@ header .container {
 
 header h1 {
     color: white;
-    /*font-size: 120%;*/
 }
 
+/* Stile logo */
 .logo-lg {
     width: 100px;
     height: 100px;
@@ -43,6 +44,65 @@ header h1 {
     }
 }
 
+/* Navbar brand */
+.navbar-brand {
+    display: flex;
+    align-items: center; /* Allinea verticalmente l'immagine e il testo */
+    gap: 10px; /* Spaziatura tra l'immagine e il testo */
+}
+
+.navbar-brand img {
+    max-width: 80px; /* Adatta il logo ai dispositivi mobili */
+    height: auto;
+}
+
+.navbar-brand h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem; /* Adatta la dimensione del testo */
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand img {
+        max-width: 100px; /* Logo più grande su desktop */
+    }
+
+    .navbar-brand h1 {
+        font-size: 2rem; /* Testo più grande su desktop */
+    }
+}
+
+/* Pulsanti carrello e utente */
+.cart-icon, .user-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Mantieni le immagini rotonde */
+    background-color: transparent; /* Elimina lo sfondo bianco */
+    border: none; /* Rimuovi eventuali bordi */
+    padding: 0; /* Rimuovi spazi interni */
+}
+
+/* Desktop: Icone più grandi */
+@media (min-width: 768px) {
+    .cart-icon, .user-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Dropdown personalizzato */
+.dropdown-toggle::after {
+    display: none !important; /* Nasconde la freccia */
+}
+
+.dropdown-menu {
+    margin-top: 10px;
+    border-radius: 5px; /* Bordo arrotondato */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Aggiunge un'ombra per un look moderno */
+}
+
+/* Pulsanti invertiti */
 .btn {
     color: rgb(255, 255, 255) !important;
 }
@@ -58,50 +118,46 @@ header h1 {
     color: white !important;
 }
 
-.language-item.selected {
-    background-color: rgb(255, 145, 0) !important; /* Forza il colore per lo stato selezionato */
+/* Pulsanti lingua e giochi */
+.language-item.selected, .gameset-item.selected {
+    background-color: rgb(255, 145, 0) !important; /* Colore per stato selezionato */
     color: white !important;
 }
 
-.language-item:hover {
-    background-color: inherit; /* Mantieni il colore originale durante il passaggio */
+.language-item:hover, .gameset-item:hover {
+    background-color: inherit; /* Mantieni il colore originale */
     color: inherit;
 }
 
-.gameset-item.selected {
-    background-color: rgb(255, 145, 0) !important; /* Forza il colore per lo stato selezionato */
-    color: white !important;
-}
-
-.gameset-item:hover {
-    background-color: inherit; /* Mantieni il colore originale durante il passaggio */
-    color: inherit;
-}
+/* Container per le card */
 .card-container {
     display: flex !important; 
     flex-wrap: wrap !important;
     justify-content: center !important;
 }
+
 .card {
     margin: 10px;
     flex: 1 1 100% !important; /* Full width on small screens */
     box-sizing: border-box !important;
-    max-width: 100% !important; /* Ensure cards do not exceed 100% of the container width on small screens */
+    max-width: 100% !important; /* Non superare il 100% della larghezza del container */
 }
+
 @media (min-width: 600px) {
     .card {
-        flex: 1 1 calc(50% - 20px) !important; /* 50% width minus margin */
-        max-width: 50% !important; /* Ensure cards do not exceed 50% of the container width */
+        flex: 1 1 calc(50% - 20px) !important; /* 50% width meno i margini */
+        max-width: 50% !important;
     }
 }
+
 @media (min-width: 900px) {
     .card {
-        flex: 1 1 calc(33.33% - 20px) !important; /* 33.33% width minus margin */
-        max-width: 33.33% !important; /* Ensure cards do not exceed 33.33% of the container width */
+        flex: 1 1 calc(33.33% - 20px) !important; /* 33.33% width meno i margini */
+        max-width: 33.33% !important;
     }
 }
-/* Card styling */
-/* Wrapper specific to the card to center it horizontally */
+
+/* Card singola */
 .card-wrapper {
     display: flex !important;
     justify-content: center !important;
@@ -140,7 +196,7 @@ header h1 {
     margin-top: 10px !important;
 }
 
-/* Larger screens (desktop/tablet) */
+/* Schermi grandi */
 @media (min-width: 768px) {
     .card-inspected {
         flex-direction: row !important;
@@ -161,3 +217,131 @@ header h1 {
         text-align: left !important;
     }
 }
+
+/* Prodotti simili */
+.similar-products {
+    display: grid; /* Usa griglia per affiancare le card */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adattamento dinamico */
+    gap: 15px; /* Spaziatura */
+    margin-top: 20px;
+}
+
+.product-detail-card {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease; /* Transizione hover */
+    text-decoration: none; /* Rimuovi sottolineatura */
+    color: inherit;
+}
+
+.product-detail-card:hover {
+    transform: scale(1.05); /* Ingrandimento hover */
+}
+
+.card-detail-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    display: block; /* Assicura che l'immagine non espanda il contenitore */
+    margin: 0 auto; /* Centra l'immagine */
+}
+
+.card-detail-title {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* Mobile scroll */
+@media (max-width: 768px) {
+    .similar-products {
+        display: flex;
+        overflow-x: auto; /* Scroll orizzontale su mobile */
+        gap: 10px;
+        padding: 10px 0;
+    }
+    
+    .product-detail-card {
+        min-width: 150px; /* Card più strette su mobile */
+    }
+}
+/*aaaaaaaaaaaaa*/
+/* Stile generale header */
+header {
+    background-color: rgb(0, 64, 255); 
+    box-sizing: border-box;
+    display: block;
+    width: 100vw; 
+    margin: 0;
+    padding: 0; 
+}
+
+header .container {
+    max-width: 1140px; 
+    margin: 0 auto;
+    padding: 0 15px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navbar brand: struttura flex per logo e testo */
+.navbar-brand {
+    display: flex;
+    flex-direction: column; /* Impostazione mobile-first (logo sopra il testo) */
+    align-items: center; /* Centra l'immagine e il testo */
+    gap: 10px; /* Spaziatura tra l'immagine e il testo */
+}
+
+/* Logo */
+.navbar-brand img {
+    max-width: 80px; /* Logo più piccolo di default */
+    height: auto;
+}
+
+/* Titolo della navbar */
+.navbar-brand h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem; /* Testo più piccolo di default */
+    color: white;
+}
+
+/* Media queries per il desktop: logo a sinistra e testo a destra */
+@media (min-width: 768px) {
+    .navbar-brand {
+        flex-direction: row; /* Imposta layout orizzontale su desktop */
+        align-items: center; /* Allinea l'immagine e il testo al centro */
+        gap: 20px; /* Spaziatura più ampia su desktop */
+    }
+    
+    .navbar-brand img {
+        max-width: 100px; /* Logo più grande su desktop */
+    }
+
+    .navbar-brand h1 {
+        font-size: 2rem; /* Testo più grande su desktop */
+    }
+}
+
+/* Rimuovere il bordo dalle immagini del carrello e dell'utente */
+.cart-icon, .user-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; /* Mantieni le immagini rotonde */
+    background-color: transparent; /* Elimina lo sfondo bianco */
+    border: none !important; /* Rimuovi il bordo */
+    padding: 0; /* Rimuovi i padding interni */
+}
+
+/* Icone più grandi su desktop */
+@media (min-width: 768px) {
+    .cart-icon, .user-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Restante parte del CSS (può rimanere invariato per il resto) */

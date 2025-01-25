@@ -40,9 +40,12 @@ class DatabaseHelper{
     //Gestione carrello per i bottoni di rimozione, aggiunta e sottrazione
     public function increaseQuantity($itemId, $userEmail) {
         $query = "UPDATE cart_card cc
-                  JOIN cart ca ON ca.id = cc.cart_id
-                  SET cc.quantity = cc.quantity + 1
-                  WHERE cc.card_code = ? AND ca.user_email = ?";
+                JOIN cart ca ON ca.id = cc.cart_id
+                JOIN card c ON c.code = cc.card_code
+                SET cc.quantity = cc.quantity + 1
+                WHERE cc.card_code = ?
+                AND ca.user_email = ?
+                AND cc.quantity + 1 <= c.quantity;";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('is', $itemId, $userEmail);
         $stmt->execute();
@@ -130,8 +133,26 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('is', $itemId, $userEmail);
         $stmt->execute();
+
+
     }
     
+    public function getCartItemCount($userEmail) {
+        $query = "SELECT COUNT(*) as item_count FROM cart_card cc
+                  JOIN cart ca ON ca.id = cc.cart_id
+                  WHERE ca.user_email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['item_count'];
+        $stmt->close();
+        
+        // Echo JSON direttamente dalla funzione
+        echo json_encode(['item_count' => $count]);
+        // DAVERIFICARE
+        return $count;
+    }
 
 
     public function removeAllItemsFromCart($userEmail) {
@@ -209,6 +230,17 @@ class DatabaseHelper{
         return $result;
     }
 
+    public function getStock($cardCode) {
+        $query = "SELECT quantity FROM card WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $cardCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stock = $result->fetch_assoc();
+        $stmt->close();
+        return $stock['quantity'];
+    }
+
     function insertGameSet($name, $date, $game) {
         $query = "INSERT INTO gameset (name, date, game_name) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
@@ -226,6 +258,19 @@ class DatabaseHelper{
         $stmt->bind_param('ssssid', $language, $image, $description, $set, $quantity, $price);
         $stmt->execute();
         $stmt->close();
+    }
+
+    // Funzione per ottenere la quantità di una carta nel carrello di un utente
+    public function getCardNumber($user_email, $card_code) {
+        $query = "SELECT quantity FROM cart_card cc
+                  JOIN cart ca ON ca.id = cc.cart_id
+                  WHERE ca.user_email = ? AND cc.card_code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si', $user_email, $card_code);
+        $result = $stmt->get_result();
+        $quantity = $result->fetch_assoc()['quantity'];
+        $stmt->close();
+        return $quantity;
     }
 
     function getSets() {
@@ -333,6 +378,8 @@ class DatabaseHelper{
         $stmt->close();
     }
 
+    
+
     function editCard($code, $language, $image, $description, $set, $quantity, $price) {
         $query = "UPDATE card SET language = ?, image = ?, description = ?, set_code = ?, quantity = ?, price = ? WHERE code = ?";
         $stmt = $this->db->prepare($query);
@@ -340,4 +387,74 @@ class DatabaseHelper{
         $stmt->execute();
         $stmt->close();
     }
+
+    function insertOrder($user_email, $quantity, $total_price) {
+        $query = "INSERT INTO `order` (`order_date`, `quantity`, `total_price`, `user_email`)
+                  VALUES (NOW(), ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ids', $quantity, $total_price, $user_email);
+        $stmt->execute();
+        return $this->db->insert_id;
+    }
+
+    // Da Verificare
+    // Funzione per inviare una nuova notifica
+    public function sendNotification($status = 0, $message, $user_email, $card_code = null, $order_id = null) {
+        $query = "INSERT INTO `notification` (status, message, user_email, card_code, order_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('issii', $status, $message, $user_email, $card_code, $order_id);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    public function getAdminEmails() {
+        $query = "SELECT email FROM user WHERE is_admin = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $emails = array();
+        while ($row = $result->fetch_assoc()) {
+            $emails[] = $row['email'];
+        }
+        $stmt->close();
+        return $emails;
+    }
+
+
+    function insertOrderCard($order_id, $card_code, $quantity) {
+        $query = "INSERT INTO `order_card` (`order_id`, `card_code`, `quantity`)
+                  VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('iii', $order_id, $card_code, $quantity);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    // Funzione per rimuovere una quantità specifica di carte dal database
+    public function removeFromInventory($card_code, $quantity) {
+        // Prima otteniamo la quantità attuale della carta nel database
+        $query = "SELECT quantity FROM card WHERE code = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $card_code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $current_quantity = $result->fetch_assoc()['quantity'];
+        $stmt->close();
+        
+
+        // Calcoliamo la nuova quantità
+        $new_quantity = $current_quantity - $quantity;
+
+        if ($new_quantity >= 0) {
+            // Se la nuova quantità è maggiore o uguale a 0, aggiorniamo la quantità nel database
+            $query = "UPDATE card SET quantity = ? WHERE code = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $new_quantity, $card_code);
+            $stmt->execute();
+            $stmt->close();
+        } // Do per scontato che la quantità da rimuovere sia minore o uguale alla quantità nello store
+    }
+
 }
+?>

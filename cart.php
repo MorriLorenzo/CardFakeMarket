@@ -7,8 +7,51 @@ if(isset($_SESSION['email'])){
     // Controlla se la richiesta proviene dal form
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['open_loading'])) {
         $_SESSION['can_access_page'] = true; // Autorizza temporaneamente l'accesso
+
+        $cart = $dbh->getCart($_SESSION['email']); // Ciclo cart
+        $verify = true;
+        foreach ($cart as $card) {
+            $quantity = $card['card_quantity'];
+            $stock = $dbh->getStock($card['card_code']);
+            if ($stock < $quantity) {
+                // Messaggio di errore
+                $verify = false;
+            }
+        }
+
+        if ($verify) {// TODOcazz se ci sono elementi sballati faccio reset automatico di quegli elementi o lacio stare? per ora lascio stare
+            $total_price = 0;
+            // TODO l'articolo con num = 0 non deve essere incluso nel conteggio finale
+            foreach ($cart as $card) {
+                $total_price += $card['card_price'] * $card['card_quantity'];
+            }
+            $orderId = $dbh->insertOrder($_SESSION['email'], count($cart), $total_price);
+            $adminMails = $dbh->getAdminEmails();
+            foreach ($cart as $card) {
+                foreach ($adminMails as $adminMail) {
+                    $dbh->sendNotification(0, "ordine effettuato", $adminMail, null, $orderId);
+                }
+            }
+            $dbh->sendNotification(0, "ordine in consegna", $_SESSION['email'], null, $orderId);
+            foreach ($cart as $card) {
+                $dbh->insertOrderCard($orderId, $card['card_code'], $card['card_quantity']);
+                $dbh->removeFromInventory($card['card_code'], $card['card_quantity']);
+                $stock = $dbh->getStock($card['card_code']);
+                if ($stock == 0) { // Per l'ordine agli utenti
+                    $adminMails = $dbh->getAdminEmails();
+                    foreach ($adminMails as $adminMail) {
+                        $dbh->sendNotification(0, "carta esaurita", $adminMail, $card['card_code'], null);
+                    }
+                }
+            }
+
+            // Rimuovo tutti gli elementi dal carrello dopo aver fatto l'ordine
+            $dbh->removeAllItemsFromCart($_SESSION['email']);
+            
+
+        }
         header('Location: loading.php'); // Reindirizza alla pagina di caricamento
-        exit;
+        exit;  
     }
 
     // Funzione per rimuovere un articolo dal carrello
@@ -53,6 +96,7 @@ if(isset($_SESSION['email'])){
         exit;
     }
 
+    
     // Funzione per diminuire la quantità di un articolo nel carrello
     if (isset($_POST['decrease_quantity'])) {
         $code = $_POST['card_code'];
@@ -65,8 +109,6 @@ if(isset($_SESSION['email'])){
 
     #nome pagina da visualizzare nel base
     $page = "form_cart.php";
-    
-
 
 }else{
 
@@ -77,11 +119,10 @@ if(isset($_SESSION['email'])){
 
 require 'template/base.php';
 
-//Pulla dagli altri branch 
-//aggiorna tabella ordini dopo l'acquisto, detrazione degli elementi dall'acquisto, se gli elementi diventano 0 invio notifica all'admin con [carta esaurita] e codice della carta <-- modello come notifica
-//devo creare l'ordine -> ogni item si collega con order card
-//se un elemento viene acquistato da più utenti contemporaneamente devo far si che il carrello di quell'utente "prenoti" l'item? (se un item viene aggiunto al carrello l'item count di quella carta deve diminuire di 1? (viceversa con la rimoziione))
-//la pagina si vede doppia lol
 
+//detrazione degli elementi dall'acquisto, se gli elementi diventano 0 invio notifica all'admin con [carta esaurita] e codice della carta <-- modello come notifica
+//se carta esaurita send solo a admin e il card code al posto di null va codice (nella notifica)
+//se ordine in consegna si manda notifica a utente, id ordine come order id di notifica
+//se una carta è esaurita deve essere rimossa dal cart
 ?>
 

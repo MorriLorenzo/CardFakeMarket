@@ -29,12 +29,12 @@ class DatabaseHelper{
     }
 
     public function checkUser($email, $password){
-        $query = "SELECT * FROM USER WHERE Email = ? AND Password = ?";
+        $query = "SELECT * FROM USER WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ss', $email, $password);
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        return ($result->num_rows > 0);
+        return ($result->num_rows > 0  && password_verify($password, $result->fetch_assoc()['password']));
     }
 
     public function insertUser($email, $firstName, $lastName, $address, $isAdmin, $password){

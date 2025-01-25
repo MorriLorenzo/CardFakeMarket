@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         if(!($dbh->checkEmail($email))){
             $password = $_POST['password'];
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $address = $_POST['address'];
@@ -15,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if($dbh->insertUser($email, $first_name, $last_name, $address, $noadmin, $password)) {
                 if($dbh->insertCart($email)){
-                    //TODO piu carino ma non ho voglia ora -> alert?
+                    
                     header("Location: index.php");
                 }
             }else{

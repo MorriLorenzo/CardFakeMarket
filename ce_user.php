@@ -13,6 +13,8 @@ if(!isset($_SESSION['email'])){
     $address = $_POST['address'];
     if($password == ""){
         $password = $dbh->getUser($email)['password'];
+    }else{
+        $password = password_hash($password, PASSWORD_DEFAULT);
     }
     $dbh->updateUser($email, $first_name, $last_name, $address, $password);
     header("Location: index.php");

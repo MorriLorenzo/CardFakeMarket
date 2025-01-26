@@ -234,4 +234,17 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return ($result->num_rows > 0);
     }
+    function isAdmin($email) {
+        $query = "SELECT * FROM user WHERE email = ? AND is_admin = 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $isAdmin = $result->fetch_assoc();
+        $stmt->close();
+
+        return $isAdmin !== null; // Se esiste un risultato, ritorna true; altrimenti, false
+    }
 }

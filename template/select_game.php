@@ -1,4 +1,7 @@
 <div class="container">
+    <?php if($games == null){ ?>
+        <h1 class="text-center fw-bold">NO GAMES AVAILABLE</h1>
+    <?php }else{ ?>
     <h1 class="text-center fw-bold">SELECT GAME</h1>
     <div class="d-flex flex-wrap justify-content-center gap-1">
         
@@ -24,4 +27,5 @@
             </a>
         <?php endforeach; ?>  
     </div>
+    <?php } ?>
 </div>

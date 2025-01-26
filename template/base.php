@@ -53,6 +53,9 @@
                                 <img src="img/user.png" alt="user" class="img-thumbnail bg-transparent user-icon">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <?php if($dbh->isAdmin($_SESSION['email'])): ?>
+                                    <li><a class="dropdown-item" href="admin.php">Admin</a></li>
+                                <?php endif; ?>
                                 <li><a class="dropdown-item" href="edit_user.php">Edit Profile</a></li>
                                 <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
                                 <li><a class="dropdown-item" href="notifications.php">Notifications</a></li>

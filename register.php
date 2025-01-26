@@ -10,6 +10,7 @@ if(isset($_SESSION['email'])){
         unset($_SESSION['error']);
     }
     #nome pagina da visualizzare nel base
+    //asbregafioi aieeeeh
     $page = "form_register.php";
 
     require 'template/base.php';

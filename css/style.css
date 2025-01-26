@@ -118,6 +118,26 @@ header h1 {
     color: white !important;
 }
 
+.customized-btn {
+    font-size: 1.25rem; /* Aumenta la dimensione del testo */
+    color: rgb(0, 0, 0); /* Colore del testo nero */
+    font-weight: bold; /* Testo in grassetto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.personaliz-checkbox {
+    width: 20px;
+    height: 20px;
+    outline: 2px solid black;
+    outline-offset: 2px;
+}
+
+.personaliz-button {
+    font-weight: bold; /* Testo in grassetto */
+}
+
 /* Pulsanti lingua e giochi */
 .language-item.selected, .gameset-item.selected {
     background-color: rgb(255, 145, 0) !important; /* Colore per stato selezionato */

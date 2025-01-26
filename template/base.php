@@ -82,6 +82,11 @@
         echo $_SESSION['email'];
     } ?>
 -->
+    
+    <div id="notification-id">
+        <!-- Notifications will be displayed here -->
+    </div>
+    <script src=".\js\notification.js"></script>
 <script src="bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

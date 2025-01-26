@@ -45,7 +45,7 @@
                 <!-- da sistemare per bene con home -->
                 <nav class="d-flex justify-content-end w-100">
                     <div class="d-flex align-items-center ms-3">
-                        <a href="CARRELLLLLLLLLLLLLLLLL.php" class="me-3">
+                        <a href="cart.php" class="me-3">
                             <img src="img/cart.png" alt="cart" class="img-thumbnail bg-transparent cart-icon">
                         </a>
                         <div class="dropdown">

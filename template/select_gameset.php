@@ -8,11 +8,11 @@
                 <!-- Search Form -->
                 <form class="d-flex justify-content-center w-100" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
                     
-                    <div class="dropdown filter me-2"> <!-- Spostato prima del bottone Search -->
+                    <div class="dropdown filter-dropdown filter me-2"> <!-- Spostato prima del bottone Search -->
                         <img src="img/filter.png" alt="Dropdown" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
                         <ul class="dropdown-menu">
                             <!-- Language Filter -->
-                            <li class="dropdown-submenu position-relative">
+                            <li class="dropdown-submenu  position-relative">
                                 <a class="dropdown-item dropdown-toggle" href="#">Filter for language</a>
                                 <ul class="dropdown-menu position-absolute" style="left: 100%; top: 0;">
                                     <?php 

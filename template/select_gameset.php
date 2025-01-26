@@ -7,7 +7,7 @@
             <div class="d-flex w-100 justify-content-center align-items-center">
                 <!-- Search Form -->
                 <form class="d-flex justify-content-center w-100" role="search" method="POST" action="index.php?page=card_table.php&game=<?php echo $game; ?>">
-                    <!-- Filter Dropdown Icon -->
+                    
                     <div class="dropdown filter me-2"> <!-- Spostato prima del bottone Search -->
                         <img src="img/filter.png" alt="Dropdown" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="height: 40px;">
                         <ul class="dropdown-menu">
@@ -18,8 +18,10 @@
                                     <?php 
                                     $languages = $dbh->getLanguages();
                                     foreach ($languages as $language): ?>
-                                        <li><a class="dropdown-item language-item" href="#" data-language="<?php echo $language; ?>"><?php echo $language; ?></a></li>
-                                    <?php endforeach; ?> 
+                                        <li class="dropdown-submenu position-relative">
+                                            <a class="dropdown-item language-item" href="#" data-language="<?php echo $language; ?>"><?php echo $language; ?></a>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </li>
                             <!-- Set Filter -->
@@ -29,12 +31,13 @@
                                     <?php 
                                     $sets = $dbh->getGameSets($game);
                                     foreach ($sets as $set): ?>
-                                        <li><a class="dropdown-item gameset-item" href="#" data-set="<?php echo $set; ?>"><?php echo $set; ?></a></li>
+                                        <a class="dropdown-item gameset-item" href="#" data-set="<?php echo $set; ?>"><?php echo $set; ?></a>
                                     <?php endforeach; ?> 
                                 </ul>
                             </li>
                         </ul>
                     </div>
+                     <!-- Search BarAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name" style="max-width: 250px;">
                     <input type="hidden" id="language-input" name="language">
                     <input type="hidden" id="set-input" name="set">

@@ -1,16 +1,47 @@
-// Dropdown annidati (migliorati per mobile)
+// Dropdown annidati (multilivello)
 const dropdowns = document.querySelectorAll('.dropdown-submenu');
 
 dropdowns.forEach(dropdown => {
+  // Apre i sottomenu di livello 1
   dropdown.addEventListener('click', function (event) {
-    event.stopPropagation(); // Previeni la chiusura del menu quando clicchi un sottomenu
-    event.preventDefault(); // Impedisci il comportamento predefinito del link
+    event.stopPropagation(); // Evita di propagare il clic
+    event.preventDefault(); // Impedisci il comportamento predefinito
 
-    // Trova il sottomenu corrispondente
+    // Trova il sottomenu di livello 1 corrispondente
     const submenu = dropdown.querySelector('.dropdown-menu');
 
-    // Mostra sempre il sottomenu selezionato
+    // Mostra solo il sottomenu di livello 1 selezionato
     submenu.classList.add('show');
+  });
+
+  // Gestione dei sottomenu di livello 2
+  const submenuItems = dropdown.querySelectorAll('.dropdown-menu .dropdown-submenu');
+
+  submenuItems.forEach(submenuItem => {
+    submenuItem.addEventListener('click', function (event) {
+      event.stopPropagation(); // Evita di chiudere il livello 1
+      event.preventDefault(); // Impedisci il comportamento predefinito
+
+      // Trova il sottomenu di livello 2 corrispondente
+      const subSubmenu = submenuItem.querySelector('.dropdown-menu');
+
+      // Mostra solo il sottomenu di livello 2 selezionato
+      subSubmenu.classList.add('show');
+    });
+
+    // Gestione del clic sugli elementi del sottomenu di livello 2
+    const subSubmenuItems = submenuItem.querySelectorAll('.dropdown-item');
+
+    subSubmenuItems.forEach(subSubmenuItem => {
+      subSubmenuItem.addEventListener('click', function (event) {
+        
+
+        // Chiudi solo il sottomenu di livello 2 genitore
+        const parentSubmenu = subSubmenuItem.closest('.dropdown-menu');
+        parentSubmenu.classList.remove('show');
+        event.stopPropagation(); // Evita di propagare il clic
+      });
+    });
   });
 });
 
@@ -22,7 +53,7 @@ filterImage.addEventListener('click', function (event) {
   event.stopPropagation(); // Previeni la chiusura del menu
   rootDropdown.classList.add('show'); // Mostra il menu principale
 
-  // Chiudi tutti i sottomenu
+  // Chiudi tutti i sottomenu di livello 1
   const submenus = rootDropdown.querySelectorAll('.dropdown-menu');
   submenus.forEach(submenu => submenu.classList.remove('show'));
 });
@@ -34,6 +65,7 @@ document.addEventListener('click', function (event) {
     // Non fa nulla: il menu rimane aperto
   }
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -314,6 +314,19 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         $count = $result->fetch_assoc()['item_count'];
         $stmt->close();
+        return $count;
+    }
+
+    public function getEchoCartItemCount($userEmail) {
+        $query = "SELECT COUNT(*) as item_count FROM cart_card cc
+                  JOIN cart ca ON ca.id = cc.cart_id
+                  WHERE ca.user_email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $userEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['item_count'];
+        $stmt->close();
         
         // Echo JSON direttamente dalla funzione
         echo json_encode(['item_count' => $count]);

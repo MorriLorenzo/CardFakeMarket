@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once("bootstrapt.php");
 
     // Controlla se l'accesso è autorizzato
     if (!isset($_SESSION['can_access_page']) || $_SESSION['can_access_page'] !== true) {

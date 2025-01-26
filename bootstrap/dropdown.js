@@ -1,39 +1,40 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Dropdown annidati (migliorati per mobile)
-    const dropdowns = document.querySelectorAll('.dropdown-submenu');
-  
-    dropdowns.forEach(dropdown => {
-      dropdown.addEventListener('click', function(event) {
-        event.preventDefault(); // Impedisci il comportamento predefinito del link
-  
-        const submenu = dropdown.querySelector('.dropdown-menu');
-        submenu.classList.toggle('show'); 
-      });
-    });
-  
-    // Selezione della lingua e del set (più conciso)
-    const handleSelection = (items, type) => {
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const selected = item.dataset[type];
-          items.forEach(el => el.classList.remove('selected'));
-          item.classList.add('selected');
-          document.getElementById(`${type}-input`).value = selected;
-        });
-      });
-    };
-  
-    const languageItems = document.querySelectorAll('.language-item');
-    const gamesetItems = document.querySelectorAll('.gameset-item');
-  
-    handleSelection(languageItems, 'language');
-    handleSelection(gamesetItems, 'set');
-  
-    // Invio del form (semplificato)
-    document.querySelector('.btn.btn-outline-success').addEventListener('click', () => {
-      // I valori dei campi nascosti sono già aggiornati automaticamente
-    });
+// Dropdown annidati (migliorati per mobile)
+const dropdowns = document.querySelectorAll('.dropdown-submenu');
+
+dropdowns.forEach(dropdown => {
+  dropdown.addEventListener('click', function (event) {
+    event.stopPropagation(); // Previeni la chiusura del menu quando clicchi un sottomenu
+    event.preventDefault(); // Impedisci il comportamento predefinito del link
+
+    // Trova il sottomenu corrispondente
+    const submenu = dropdown.querySelector('.dropdown-menu');
+
+    // Mostra sempre il sottomenu selezionato
+    submenu.classList.add('show');
   });
+});
+
+// Assicura che il menu principale rimanga sempre aperto
+const rootDropdown = document.querySelector('.dropdown-menu');
+const filterImage = document.querySelector('.dropdown.filter img');
+
+filterImage.addEventListener('click', function (event) {
+  event.stopPropagation(); // Previeni la chiusura del menu
+  rootDropdown.classList.add('show'); // Mostra il menu principale
+
+  // Chiudi tutti i sottomenu
+  const submenus = rootDropdown.querySelectorAll('.dropdown-menu');
+  submenus.forEach(submenu => submenu.classList.remove('show'));
+});
+
+// Evita che cliccando in altre aree della pagina il menu si chiuda
+document.addEventListener('click', function (event) {
+  const isClickInsideDropdown = rootDropdown.contains(event.target) || filterImage.contains(event.target);
+  if (!isClickInsideDropdown) {
+    // Non fa nulla: il menu rimane aperto
+  }
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let selectedLanguage = null;

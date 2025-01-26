@@ -145,8 +145,8 @@ class DatabaseHelper{
 
     //dato un numero e un gioco, prende carte randomico di esso, restituisce solo il path image
     public function getRandomCards($n,$game){
-        $stmt = $this->db->prepare("SELECT * FROM CARD JOIN GAMESET ON CARD.set_code=GAMESET.code 
-                                    JOIN GAME ON GAME.name=GAMESET.game_name 
+        $stmt = $this->db->prepare("SELECT C.code,C.description,C.image FROM CARD AS C JOIN GAMESET AS GS ON C.set_code=GS.code 
+                                    JOIN GAME ON GAME.name=GS.game_name 
                                     WHERE GAME.name = ? ORDER BY RAND() LIMIT ?");
         $stmt->bind_param('si',$game,$n);
         $stmt->execute();

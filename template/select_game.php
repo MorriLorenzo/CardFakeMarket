@@ -25,7 +25,3 @@
         <?php endforeach; ?>  
     </div>
 </div>
-
-                <!--SCELTA:
-                    1)mettere nella tabella giochi anche il percorso dell immagine, e quindi prenderlo con una query
-                    2)chiamare le immagini come il gioco +".png" e prenderle sapendo il path (consigliata) -->

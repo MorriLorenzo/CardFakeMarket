@@ -53,13 +53,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?php echo $cards[0]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[0]['description']; ?>">
+                <a href="index.php?page=card_detail.php&id=<?php echo $cards[0]['code']; ?>"><img src="<?php echo $cards[0]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[0]['description']; ?>"></a>
             </div>
             <div class="carousel-item">
-                <img src="<?php echo $cards[1]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[1]['description']; ?>">
+                <a href="index.php?page=card_detail.php&id=<?php echo $cards[1]['code']; ?>"><img src="<?php echo $cards[1]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[1]['description']; ?>"></a>
             </div>
             <div class="carousel-item">
-                <img src="<?php echo $cards[2]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[2]['description']; ?>">
+                <a href="index.php?page=card_detail.php&id=<?php echo $cards[2]['code']; ?>"><img src="<?php echo $cards[2]['image']; ?>" class="d-block w-100" alt="<?php echo $cards[2]['description']; ?>"></a>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

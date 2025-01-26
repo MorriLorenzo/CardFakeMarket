@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.querySelectorAll('.dropdown-submenu');
   
     dropdowns.forEach(dropdown => {
-      dropdown.addEventListener('click', function() {
+      dropdown.addEventListener('click', function(event) {
+        event.preventDefault(); // Impedisci il comportamento predefinito del link
+  
         const submenu = dropdown.querySelector('.dropdown-menu');
-        submenu.classList.toggle('show'); // Utilizziamo una classe per mostrare/nascondere il menu
+        submenu.classList.toggle('show'); 
       });
     });
   
@@ -31,32 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.btn.btn-outline-success').addEventListener('click', () => {
       // I valori dei campi nascosti sono già aggiornati automaticamente
     });
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-  // ... (resto del tuo codice)
-
-  const dropdownItems = document.querySelectorAll('.dropdown-item');
-  dropdownItems.forEach(item => {
-    item.addEventListener('click', function() {
-      const dropdown = this.closest('.dropdown');
-      const isOpen = dropdown.classList.contains('keep-open');
-
-      // Se il dropdown è già aperto, lo chiudiamo
-      if (isOpen) {
-        dropdown.classList.remove('keep-open');
-      } else {
-        // Altrimenti, lo apriamo e chiudiamo gli altri eventuali dropdown aperti
-        const openDropdowns = document.querySelectorAll('.dropdown.keep-open');
-        openDropdowns.forEach(openDropdown => {
-          openDropdown.classList.remove('keep-open');
-        });
-        dropdown.classList.add('keep-open');
-      }
-    });
   });
-});
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     let selectedLanguage = null;

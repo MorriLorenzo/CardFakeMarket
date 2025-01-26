@@ -31,10 +31,13 @@
                                     <?php 
                                     $sets = $dbh->getGameSets($game);
                                     foreach ($sets as $set): ?>
-                                        <a class="dropdown-item gameset-item" href="#" data-set="<?php echo $set; ?>"><?php echo $set; ?></a>
+                                        <li class="dropdown-submenu position-relative">
+                                            <a class="dropdown-item gameset-item" href="#" data-set="<?php echo $set; ?>"><?php echo $set; ?></a>
+                                        </li>
                                     <?php endforeach; ?> 
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                      <!-- Search BarAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->

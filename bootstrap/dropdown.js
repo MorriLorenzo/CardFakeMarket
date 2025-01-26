@@ -29,21 +29,20 @@ dropdowns.forEach(dropdown => {
       subSubmenu.classList.add('show');
     });
 
-    // Gestione del clic sugli elementi del sottomenu di livello 2
+    // Gestione del clic sugli elementi del sottomenu di livello 2 (chiusura corretta)
     const subSubmenuItems = submenuItem.querySelectorAll('.dropdown-item');
 
     subSubmenuItems.forEach(subSubmenuItem => {
       subSubmenuItem.addEventListener('click', function (event) {
-        
-
-        // Chiudi solo il sottomenu di livello 2 genitore
+        // Chiudi solo il sottomenu di livello 2
         const parentSubmenu = subSubmenuItem.closest('.dropdown-menu');
-        parentSubmenu.classList.remove('show');
+        parentSubmenu.classList.remove('show'); // Rimuovi la classe 'show'
         event.stopPropagation(); // Evita di propagare il clic
       });
     });
   });
 });
+
 
 // Assicura che il menu principale rimanga sempre aperto
 const rootDropdown = document.querySelector('.dropdown-menu');

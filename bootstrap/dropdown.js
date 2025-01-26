@@ -1,39 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Dropdown annidati (migliorati per mobile)
-    const dropdowns = document.querySelectorAll('.dropdown-submenu');
-  
-    dropdowns.forEach(dropdown => {
-      dropdown.addEventListener('click', function(event) {
-        event.preventDefault(); // Impedisci il comportamento predefinito del link
-  
-        const submenu = dropdown.querySelector('.dropdown-menu');
-        submenu.classList.toggle('show'); 
-      });
+// Seleziona solo il filtro con la classe "filter-dropdown"
+const filterDropdown = document.querySelector('.filter-dropdown');
+
+// Aggiungi il listener solo per il filtro
+if (filterDropdown) {
+  const dropdowns = filterDropdown.querySelectorAll('.dropdown-submenu');
+
+  dropdowns.forEach(dropdown => {
+    // Apre i sottomenu di livello 1
+    dropdown.addEventListener('click', function (event) {
+      event.stopPropagation(); // Evita di propagare il clic
+      event.preventDefault(); // Impedisci il comportamento predefinito
+
+      // Trova il sottomenu di livello 1 corrispondente
+      const submenu = dropdown.querySelector('.dropdown-menu');
+
+      // Mostra solo il sottomenu di livello 1 selezionato
+      submenu.classList.add('show');
     });
-  
-    // Selezione della lingua e del set (più conciso)
-    const handleSelection = (items, type) => {
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const selected = item.dataset[type];
-          items.forEach(el => el.classList.remove('selected'));
-          item.classList.add('selected');
-          document.getElementById(`${type}-input`).value = selected;
+
+    // Gestione dei sottomenu di livello 2
+    const submenuItems = dropdown.querySelectorAll('.dropdown-menu .dropdown-submenu');
+
+    submenuItems.forEach(submenuItem => {
+      submenuItem.addEventListener('click', function (event) {
+        event.stopPropagation(); // Evita di chiudere il livello 1
+        event.preventDefault(); // Impedisci il comportamento predefinito
+
+        // Trova il sottomenu di livello 2 corrispondente
+        const subSubmenu = submenuItem.querySelector('.dropdown-menu');
+
+        // Mostra solo il sottomenu di livello 2 selezionato
+        subSubmenu.classList.add('show');
+      });
+
+      // Gestione del clic sugli elementi del sottomenu di livello 2 (chiusura corretta)
+      const subSubmenuItems = submenuItem.querySelectorAll('.dropdown-item');
+
+      subSubmenuItems.forEach(subSubmenuItem => {
+        subSubmenuItem.addEventListener('click', function (event) {
+          // Chiudi solo il sottomenu di livello 2
+          const parentSubmenu = subSubmenuItem.closest('.dropdown-menu');
+          parentSubmenu.classList.remove('show'); // Rimuovi la classe 'show'
+          event.stopPropagation(); // Evita di propagare il clic
         });
       });
-    };
-  
-    const languageItems = document.querySelectorAll('.language-item');
-    const gamesetItems = document.querySelectorAll('.gameset-item');
-  
-    handleSelection(languageItems, 'language');
-    handleSelection(gamesetItems, 'set');
-  
-    // Invio del form (semplificato)
-    document.querySelector('.btn.btn-outline-success').addEventListener('click', () => {
-      // I valori dei campi nascosti sono già aggiornati automaticamente
     });
   });
+}
+
+
+
+// Assicura che il menu principale rimanga sempre aperto
+const filterImage = document.querySelector('.dropdown.filter img');
+
+// Evita che cliccando in altre aree della pagina il menu si chiuda
+document.addEventListener('click', function (event) {
+  const isClickInsideDropdown = filterDropdown.contains(event.target) || filterImage.contains(event.target);
+  if (!isClickInsideDropdown) {
+    // Non fa nulla: il menu rimane aperto
+  }
+});
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let selectedLanguage = null;

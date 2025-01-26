@@ -28,28 +28,13 @@ if (is_array($notification) && isset($notification['id']) && $notification['id']
     ?>
 
     <?php if (isset($notification['status']) && $notification['status'] != 1): ?>
-        <div class="position-absolute bottom-0 end-0 m-3" style="width: 18rem;" id="autoDismissCard">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notification</h5>
-                    <p class="card-text">
-                        <?php echo htmlspecialchars($notification['message']); ?>
-                    </p>
-                    <a href="notifications.php" class="btn btn-primary btn-sm">Notifications</a>
-                </div>
-            </div>
+        <div class="position-absolute bottom-0 end-0 m-3 p-3 border rounded shadow" style="width: 18rem; background-color: #f8f9fa;" id="autoDismissNotification">
+            <h5 class="fw-bold mb-2">Notification</h5>
+            <p class="mb-3">
+                <?php echo htmlspecialchars($notification['message']); ?>
+            </p>
+            <a href="notifications.php" class="btn btn-primary btn-sm">Notifications</a>
         </div>
-
-        <script>
-            setTimeout(() => {
-                const card = document.getElementById('autoDismissCard');
-                if (card) {
-                    card.style.transition = "opacity 0.5s";
-                    card.style.opacity = "0";
-                    setTimeout(() => card.remove(), 500);
-                }
-            }, 5000);
-        </script>
     <?php endif; ?>
 
     <?php

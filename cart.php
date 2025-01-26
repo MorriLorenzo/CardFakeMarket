@@ -21,7 +21,7 @@ if(isset($_SESSION['email'])){
 
         if ($verify) {// TODOcazz se ci sono elementi sballati faccio reset automatico di quegli elementi o lacio stare? per ora lascio stare
             $total_price = 0;
-            // TODO l'articolo con num = 0 non deve essere incluso nel conteggio finale
+            
             foreach ($cart as $card) {
                 $total_price += $card['card_price'] * $card['card_quantity'];
             }

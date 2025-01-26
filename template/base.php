@@ -13,12 +13,13 @@
         <header class="border-bottom py-2">
             <!-- Usa .container solo per il contenuto -->
             <div class="container">
-                <div class="d-flex align-items-center flex-wrap">
-                    <img src="img/logo2.png" alt="Logo" class="rounded-circle me-3 logo-lg ">
-                    <h1 class="mb-0 navbar-expand-lg">
-                        <a href="index.php" class="navbar-brand">CardFakeMarket</a>
-                    </h1>
-                </div>
+            <div class="d-flex align-items-center">
+                <img src="img/logo2.png" alt="Logo" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                <h1 class="mb-0">
+                    <a href="index.php" class="navbar-brand text-decoration-none">CardFakeMarket</a>
+                </h1>
+            </div>
+
                 <?php if (!isset($_SESSION['email'])): ?>
                 
                     <nav>
@@ -45,7 +46,7 @@
                 <!-- da sistemare per bene con home -->
                 <nav class="d-flex justify-content-end w-100">
                     <div class="d-flex align-items-center ms-3">
-                        <a href="CARRELLLLLLLLLLLLLLLLL.php" class="me-3">
+                        <a href="cart.php" class="me-3">
                             <img src="img/cart.png" alt="cart" class="img-thumbnail bg-transparent cart-icon">
                         </a>
                         <div class="dropdown">

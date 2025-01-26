@@ -359,20 +359,6 @@ class DatabaseHelper{
         return $orderDetail;
     }
 
-    function getCardById($cardCode) {
-        $query = "SELECT * FROM `card` WHERE code = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i', $cardCode);
-        $stmt->execute();
-    
-        $result = $stmt->get_result();
-    
-        $card = $result->fetch_assoc();
-        $stmt->close();
-    
-        return $card;
-    }
-
     function isAdmin($email) {
         $query = "SELECT * FROM user WHERE email = ? AND is_admin = 1";
         $stmt = $this->db->prepare($query);

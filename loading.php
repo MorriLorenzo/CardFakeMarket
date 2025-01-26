@@ -17,5 +17,4 @@
 
     $page = "form_loading.php";
     require 'template/base.php';
-
 ?>

@@ -73,24 +73,6 @@ header h1 {
     }
 }
 
-/* Pulsanti carrello e utente */
-.cart-icon, .user-icon {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%; /* Mantieni le immagini rotonde */
-    background-color: transparent; /* Elimina lo sfondo bianco */
-    border: none; /* Rimuovi eventuali bordi */
-    padding: 0; /* Rimuovi spazi interni */
-}
-
-/* Desktop: Icone più grandi */
-@media (min-width: 768px) {
-    .cart-icon, .user-icon {
-        width: 45px;
-        height: 45px;
-    }
-}
-
 /* Dropdown personalizzato */
 .dropdown-toggle::after {
     display: none !important; /* Nasconde la freccia */

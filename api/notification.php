@@ -39,17 +39,6 @@ if (is_array($notification) && isset($notification['id']) && $notification['id']
                 </div>
             </div>
         </div>
-
-        <script>
-            setTimeout(() => {
-                const card = document.getElementById('autoDismissCard');
-                if (card) {
-                    card.style.transition = "opacity 0.5s";
-                    card.style.opacity = "0";
-                    setTimeout(() => card.remove(), 500);
-                }
-            }, 5000);
-        </script>
     <?php endif; ?>
 
     <?php
